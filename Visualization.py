@@ -8,17 +8,16 @@ def visualize(df,final_model):
     train, test = df[:trainlen],df[trainlen:]
 
     if final_model == 'ETS':
-        predicted_data = ETS(df,df)['Predictions']
-        print(predicted_data)
+        predicted_data = ETS(df,df)
 
     elif final_model == 'ExpSmoothing':
-        predicted_data = ExpSmoothings(df,df)['Predictions']
-        print(predicted_data)
+        predicted_data = ExpSmoothings(df,df)
 
     elif final_model == 'ARIMA':
-        predicted_data = arima(df,df)['Predictions']
-        print(predicted_data)
+        predicted_data = arima(df,df)
+
     plt.plot(df)
-    plt.plot(predicted_data)
+    plt.plot(predicted_data['Predictions'])
     plt.show()
+
     

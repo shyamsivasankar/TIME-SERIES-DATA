@@ -26,11 +26,11 @@ rfc = RandomForestClassifier(n_estimators=100, random_state=42)
 rfc.fit(X, y)
 # serialize the model to a file
 
-with open('rfc_tsm1.pkl', 'wb') as f:
+with open('models/rfc_tsm1.pkl', 'wb') as f:
     pickle.dump(rfc, f)
 
 #json dump
-with open('frequency1.pkl', 'wb') as f:
+with open('models/frequency1.pkl', 'wb') as f:
     pickle.dump(frequency, f)
-with open('model1.pkl', 'wb') as f:
+with open('models/model1.pkl', 'wb') as f:
     pickle.dump(model, f)

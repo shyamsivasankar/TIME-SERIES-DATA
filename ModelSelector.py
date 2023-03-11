@@ -13,9 +13,11 @@ def arima(train,test):
     fittedModel = model.fit()
     predicted_data = fittedModel.predict(start=test.index[0],end=test.index[-1])
     error = mean_absolute_percentage_error(test['point_value'],predicted_data)
+    forecast_data = fittedModel.forecast(steps=300)
     return {'model' : 'ARIMA',
             'MAPE' : error,
-            'Predictions' : predicted_data}
+            'Predictions' : predicted_data,
+            'forecast' : forecast_data}
 
 def ETS(train,test):
     data = pd.Series(train['point_value']).astype('float64')
@@ -23,18 +25,22 @@ def ETS(train,test):
     fittedModel = model.fit()
     predicted_data = fittedModel.predict(start=test.index[0],end=test.index[-1])
     error = mean_absolute_percentage_error(test['point_value'],predicted_data)
+    forecast_data = fittedModel.forecast(steps=50)
     return {'model' : 'ETS',
             'MAPE' : error,
-            'Predictions' : predicted_data}
+            'Predictions' : predicted_data,
+            'forecast' : forecast_data}
 
 def ExpSmoothings(train,test):
     model = ExponentialSmoothing(train['point_value'])
     model_fit = model.fit()
     predicted_data = model_fit.predict(start=test.index[0], end=test.index[-1])
     error = mean_absolute_percentage_error(test['point_value'],predicted_data)
+    forecast_data = model_fit.forecast(steps=50)
     return {'model' : 'ExpSmoothing',
             'MAPE' : error,
-            'Predictions' : predicted_data}
+            'Predictions' : predicted_data,
+            'forecast' : forecast_data}
 
 def SARIMA(train,test):
     model = sm.tsa.statespace.SARIMAX(train, order=(1, 1, 1), seasonal_order=(1, 1, 1, 12))
