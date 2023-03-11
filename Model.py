@@ -1,3 +1,4 @@
+from scipy import signal
 import numpy as np
 import pandas as pd
 import statsmodels.api as sm
@@ -37,6 +38,11 @@ def dataEntry(datasetName):
     #Calculate Frequency
     freq = pd.infer_freq(df.index)
 
+    # Cyclicity
+    frequencies, spectrum = signal.periodogram(df['point_value'])
+    max_index = spectrum.argmax()
+    cyclicity = 1 / frequencies[max_index]
+
     # MAPE and Model
     data = SelectModel(df)
 
@@ -45,6 +51,7 @@ def dataEntry(datasetName):
                 'Volatility': volatility,
                 'Frequency' : freq,
                 'Stationarity' : dftest[1],
+                'Cyclicity' : cyclicity,
                 'Model' : data['Model']}
     
     return features
