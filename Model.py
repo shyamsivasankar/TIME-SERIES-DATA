@@ -4,8 +4,6 @@ import pandas as pd
 import statsmodels.api as sm
 
 from sklearn.preprocessing import MinMaxScaler
-from sklearn.metrics import mean_squared_error
-from sklearn.model_selection import train_test_split
 from statsmodels.tsa.stattools import adfuller
 from ModelSelector import SelectModel
 

@@ -18,6 +18,7 @@ def classifier(data_set):
     with open('models/rfc_tsm1.pkl', 'rb') as f:
         rfc = pickle.load(f)
     print('Model Loaded')
+
     ################ NEW DATA ############
     df = pd.read_csv(BytesIO(data_set))
     df=df.drop('Unnamed: 0',axis=1)
@@ -62,6 +63,7 @@ def classifier(data_set):
         if value == pred:
             final_model = key
             break
+    
     return indexedDF,final_model
 
     # from Visualization import visualize

@@ -16,8 +16,12 @@ def visualize(df,final_model):
     elif final_model == 'ARIMA':
         predicted_data = arima(df,df)
 
-    plt.plot(df)
-    plt.plot(predicted_data['Predictions'])
-    plt.show()
+    # plt.plot(df)
+    # plt.plot(predicted_data['Predictions'])
+    # plt.figure()
+
+    # plt.plot(predicted_data['forecast'])
+    # plt.show()
+    return predicted_data
 
     
