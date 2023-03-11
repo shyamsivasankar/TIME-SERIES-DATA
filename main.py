@@ -2,6 +2,7 @@ from fastapi import FastAPI,File,HTTPException
 import findClass as fc
 from Visualization import visualize
 import pandas as pd
+import uvicorn
 
 app = FastAPI()
 
@@ -42,3 +43,5 @@ async def predict(data_set: bytes = File(), start_date: str = None, end_date: st
 
     return {"model":model, "map" : data['MAPE'], "result": val,"forecast" : val2}
 
+if __name__ == "__main__":
+  uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
