@@ -7,6 +7,10 @@ import uvicorn
 app = FastAPI()
 
 
+@app.get('/')
+def hello_world():
+    return {"message":"hello world"}
+
 @app.post("/predict")
 async def predict(data_set: bytes = File(), start_date: str = None, end_date: str = None, per: int = 0):
     df,model = fc.classifier(data_set)
