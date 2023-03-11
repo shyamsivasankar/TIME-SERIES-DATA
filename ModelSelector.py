@@ -17,13 +17,6 @@ def arima(train, test):
 def ETS(train,test):
     data = pd.Series(train['point_value']).astype('float64')
     model = ETSModel(data)
-    #  , error='mul', 
-    #      trend='add', 
-    #      seasonal = 'mul',
-    #      damped_trend=True, 
-    #      seasonal_periods=12, 
-    #      initial_level=data.values.mean(),
-    #      freq=pd.infer_freq(data.index))
     fittedModel = model.fit()
     predicted_data = fittedModel.predict(start=test.index[0],end=test.index[-1])
     error = mean_absolute_percentage_error(test['point_value'],predicted_data)
