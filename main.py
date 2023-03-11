@@ -1,9 +1,7 @@
-from fastapi import FastAPI,File,Query
+from fastapi import FastAPI,File,HTTPException
 import findClass as fc
 from Visualization import visualize
 import pandas as pd
-from datetime import timedelta
-
 
 app = FastAPI()
 
@@ -12,10 +10,13 @@ app = FastAPI()
 async def predict(data_set: bytes = File(), start_date: str = None, end_date: str = None, per: int = 0):
     df,model = fc.classifier(data_set)
     # df = pd.read_csv(BytesIO(data_set))
-    date_strings = [start_date,end_date]
-    date_series = pd.Series(date_strings)
-    datetime_series = pd.to_datetime(date_series)
-
+    
+    try:
+        date_strings = [start_date,end_date]
+        date_series = pd.Series(date_strings)
+        datetime_series = pd.to_datetime(date_series)
+    except:
+        raise HTTPException(status_code=400,detail="Invalid Query Parameters")
     data = visualize(df,model) 
     predict = data['ModelObj'].predict(start = datetime_series.iloc[0], end = datetime_series.iloc[1])
     
