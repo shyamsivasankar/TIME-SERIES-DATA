@@ -39,7 +39,6 @@ def generate_graph(title,x_axis,y_axis,value2,value1 = None):
     return graph_html
 
 app = FastAPI()
-app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 
 @app.get('/',response_class=HTMLResponse)
