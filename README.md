@@ -44,6 +44,6 @@ uvicorn main:app --reload
 ## Output
 The user given dataset and inputs are taken and the features of the user dataset is extracted. The extracted features are send to the classifier to get the best model name. With the help of the model name the user dataset is run through the prediction model and the required outputs are given.
 
-![OUTPUT](https://github.com/shyamsivasankar/TIME-SERIES-DATA/blob/a36f045fbbaa0ac1b5cb22606d54239a1f1b20cb/OUTPUT/Home_page.png)
+![OUTPUT](OUTPUT/Home_page.png)
 ![OUTPUT](https://github.com/shyamsivasankar/TIME-SERIES-DATA/blob/a36f045fbbaa0ac1b5cb22606d54239a1f1b20cb/OUTPUT/output_1.png)
 ![OUTPUT](https://github.com/shyamsivasankar/TIME-SERIES-DATA/blob/a36f045fbbaa0ac1b5cb22606d54239a1f1b20cb/OUTPUT/output_2.png)
