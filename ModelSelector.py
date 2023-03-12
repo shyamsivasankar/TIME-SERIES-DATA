@@ -8,6 +8,7 @@ from statsmodels.tsa.arima.model import ARIMA
 from statsmodels.tsa.exponential_smoothing.ets import ETSModel 
 from statsmodels.tsa.holtwinters import ExponentialSmoothing
 from sklearn.metrics import mean_absolute_percentage_error
+from xgboost import XGBRegressor
 
 def arima(train,test):
     model = ARIMA(train, order=(3,0,1))
@@ -68,6 +69,16 @@ def SARIMA(train,test):
             'Predictions' : predicted_data,
             'ModelObj' : model_fit}
 
+def XGB(train,test):
+    model = XGBRegressor(n_estimators=1000)
+    # print('---------------------------------------------------------------------------------------------',train.columns)
+    model_fit = model.fit(train.index , train['point_value'])
+    predicted_data = model_fit.predict(test.index)
+    error = mean_absolute_percentage_error(test, predicted_data)
+    return {'model' : 'XGB', 
+            'MAPE' : error, 
+            'Predictions' : predicted_data,
+            'ModelObj' : model_fit}
 
 def SelectModel(df):
     trainlen = int(len(df)*0.8)
@@ -86,7 +97,12 @@ def SelectModel(df):
     if(data['MAPE']<mape):
         model = data['model']
         mape = data['MAPE']
-    
+
+    # data = XGB(train,test)
+    # if(data['MAPE']<mape):
+    #     model = data['model']
+    #     mape = data['MAPE'] 
+       
     # data = SARIMA(train,test)
     # if(data['MAPE']<mape):
     #     model = data['model']

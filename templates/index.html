@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Forecast Form</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container my-5">
+    <h1 class="text-center mb-4">Generate a Forecast</h1>
+    <form action="/predict" method="POST" enctype="multipart/form-data">
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="start_date" class="form-label">Start Date:</label>
+          <input type="text" class="form-control" id="start_date" name="start_date" required>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="end_date" class="form-label">End Date:</label>
+          <input type="text" class="form-control" id="end_date" name="end_date" required>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="period" class="form-label">Period(in applicable frequency):</label>
+          <input type="number" class="form-control" id="period" name="per" required>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="file" class="form-label">Upload a File:</label>
+          <input type="file" class="form-control" id="data_set" name="data_set"required>
+        </div>
+      </div>
+      <div class="text-center">
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+    </form>
+  </div>
+</body>
+</html>
