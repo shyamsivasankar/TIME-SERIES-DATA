@@ -10,17 +10,17 @@ All the datasets that where run to create the classifier have been indexed and t
 ### Dataset Extraction  
 The datasets after being preprocessed where analyzed using methods like Dicky-Fuller test and other to extract the below feature:
 
-1.Trend
+1. Trend
 
-2.Autocorrelation at lag 1
+2. Autocorrelation at lag 1
 
-3.Volatility
+3. Volatility
 
-4.Frequency
+4. Frequency
 
-5.Stationarity
+5. Stationarity
 
-6.Cyclicity   
+6. Cyclicity   
 
 Then the datasets were run through three different models(ARIMA , ETS , Exponential Smoothing) and the best model out of the three was extracted by calculating the MAPE(mean absolute percentage error) values.
 
