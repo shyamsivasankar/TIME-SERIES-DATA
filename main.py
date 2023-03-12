@@ -47,7 +47,6 @@ async def hello_world(request: Request):
 @app.post("/predict")
 async def predict(request: Request,data_set: bytes = File(), start_date: str = Form(), end_date: str = Form(), per: int = Form()):
     df,model = fc.classifier(data_set)
-    print(start_date,end_date)
     try:
         date_strings = [start_date,end_date]
         date_series = pd.Series(date_strings)
