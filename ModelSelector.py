@@ -1,5 +1,4 @@
 import pandas as pd
-from datetime import timedelta
 
 from statsmodels.tsa.arima.model import ARIMA
 from statsmodels.tsa.exponential_smoothing.ets import ETSModel 
@@ -11,15 +10,9 @@ def arima(train,test):
     model_fit = model.fit()
     predicted_data = model_fit.predict(start=test.index[0],end=test.index[-1])
     error = mean_absolute_percentage_error(test['point_value'],predicted_data)
-    
-    start_date = test.index[-1]
-    end_date = start_date + timedelta(days=300) 
-    forecast_data = model_fit.predict(start=start_date,end=end_date)
 
     return {'model' : 'ARIMA',
             'MAPE' : error,
-            'Predictions' : predicted_data,
-            'forecast' : forecast_data,
             'ModelObj' : model_fit}
 
 def ets(train,test):
@@ -28,15 +21,10 @@ def ets(train,test):
     model_fit = model.fit()
     predicted_data = model_fit.predict(start=test.index[0],end=test.index[-1])
     error = mean_absolute_percentage_error(test['point_value'],predicted_data)
-    
-    start_date = test.index[-1]
-    end_date = start_date + timedelta(days=300) 
-    forecast_data = model_fit.predict(start=start_date,end=end_date)
 
     return {'model' : 'ETS',
             'MAPE' : error,
             'Predictions' : predicted_data,
-            'forecast' : forecast_data,
             'ModelObj' : model_fit}
 
 def expsmoothing(train,test):
@@ -44,15 +32,10 @@ def expsmoothing(train,test):
     model_fit = model.fit()
     predicted_data = model_fit.predict(start=test.index[0], end=test.index[-1])
     error = mean_absolute_percentage_error(test['point_value'],predicted_data)
-    
-    start_date = test.index[-1]
-    end_date = start_date + timedelta(days=300) 
-    forecast_data = model_fit.predict(start=start_date,end=end_date)
 
     return {'model' : 'ExpSmoothing',
             'MAPE' : error,
             'Predictions' : predicted_data,
-            'forecast' : forecast_data,
             'ModelObj' : model_fit}
 
 def select_model(df):
