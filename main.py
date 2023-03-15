@@ -30,7 +30,6 @@ async def predict(request: Request,data_set: bytes = File(), start_date: str = F
     
     result=[]
     forecast_result=[]
-    forecast_graph=False
     for i in range(len(predict)):
         temp = {
             'point_timestamp' : predict.index[i],
