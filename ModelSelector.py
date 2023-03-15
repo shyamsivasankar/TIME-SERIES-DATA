@@ -26,7 +26,7 @@ def arima(train,test):
             'forecast' : forecast_data,
             'ModelObj' : model_fit}
 
-def ETS(train,test):
+def ets(train,test):
     data = pd.Series(train['point_value']).astype('float64')
     model = ETSModel(data)
     model_fit = model.fit()
@@ -43,7 +43,7 @@ def ETS(train,test):
             'forecast' : forecast_data,
             'ModelObj' : model_fit}
 
-def ExpSmoothings(train,test):
+def expsmoothing(train,test):
     model = ExponentialSmoothing(train['point_value'])
     model_fit = model.fit()
     predicted_data = model_fit.predict(start=test.index[0], end=test.index[-1])
@@ -59,27 +59,6 @@ def ExpSmoothings(train,test):
             'forecast' : forecast_data,
             'ModelObj' : model_fit}
 
-def SARIMA(train,test):
-    model = sm.tsa.statespace.SARIMAX(train, order=(1, 1, 1), seasonal_order=(1, 1, 1, 12))
-    model_fit = model.fit()
-    predicted_data = model_fit.predict(start=test.index[0], end=test.index[-1])
-    error = mean_absolute_percentage_error(test, predicted_data)
-    return {'model' : 'SARIMA', 
-            'MAPE' : error, 
-            'Predictions' : predicted_data,
-            'ModelObj' : model_fit}
-
-# def XGB(train,test):
-#     model = XGBRegressor(n_estimators=1000)
-#     # print('---------------------------------------------------------------------------------------------',train.columns)
-#     model_fit = model.fit(train.index , train['point_value'])
-#     predicted_data = model_fit.predict(test.index)
-#     error = mean_absolute_percentage_error(test, predicted_data)
-#     return {'model' : 'XGB', 
-#             'MAPE' : error, 
-#             'Predictions' : predicted_data,
-#             'ModelObj' : model_fit}
-
 def SelectModel(df):
     trainlen = int(len(df)*0.8)
     train, test = df[:trainlen],df[trainlen:]
@@ -88,24 +67,14 @@ def SelectModel(df):
     model = data['model']
     mape = data['MAPE']
 
-    data = ETS(train,test)
+    data = ets(train,test)
     if(data['MAPE']<mape):
         model = data['model']
         mape = data['MAPE']
     
-    data = ExpSmoothings(train,test)
+    data = expsmoothing(train,test)
     if(data['MAPE']<mape):
         model = data['model']
         mape = data['MAPE']
-
-    # data = XGB(train,test)
-    # if(data['MAPE']<mape):
-    #     model = data['model']
-    #     mape = data['MAPE'] 
-       
-    # data = SARIMA(train,test)
-    # if(data['MAPE']<mape):
-    #     model = data['model']
-    #     mape = data['MAPE']
     
     return {'Model':model,'MAPE':mape}

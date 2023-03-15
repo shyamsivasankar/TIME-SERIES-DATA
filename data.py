@@ -1,12 +1,12 @@
 import pandas as pd
-from Model import dataEntry
+from Model import dataentry
 
 val=[]
 for i in range(1,37):
     if(i==13 or i==17):
         continue
     print(i)
-    val.append(dataEntry(f'SampleDatasets/sample_{i}.csv'))
+    val.append(dataentry(f'SampleDatasets/sample_{i}.csv'))
 
 df = pd.DataFrame()
 

@@ -7,7 +7,7 @@ from sklearn.preprocessing import MinMaxScaler
 from statsmodels.tsa.stattools import adfuller
 from ModelSelector import SelectModel
 
-def dataEntry(datasetName):
+def dataentry(datasetName):
 
     # Load time series data
     df = pd.read_csv(datasetName)
@@ -18,8 +18,6 @@ def dataEntry(datasetName):
     
     scaler = MinMaxScaler()
     df['point_value']=scaler.fit_transform(df[['point_value']])
-
-    # df['point_value'] = np.log(df['point_value'])
 
     # Calculate Stationarity
     dftest = adfuller(df['point_value'], autolag = "AIC")
