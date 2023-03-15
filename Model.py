@@ -5,11 +5,11 @@ import statsmodels.api as sm
 
 from sklearn.preprocessing import MinMaxScaler
 from statsmodels.tsa.stattools import adfuller
-from ModelSelector import SelectModel
+from ModelSelector import select_model
 
-def dataentry(datasetName):
+def dataentry(dataset_name):
 
-    df = pd.read_csv(datasetName)
+    df = pd.read_csv(dataset_name)
     df=df.drop('Unnamed: 0',axis=1)
     df['point_timestamp'] = pd.to_datetime(df['point_timestamp'])
     df = df.set_index(['point_timestamp'])
@@ -32,7 +32,7 @@ def dataentry(datasetName):
     max_index = spectrum.argmax()
     cyclicity = 1 / frequencies[max_index]
 
-    data = SelectModel(df)
+    data = select_model(df)
 
     features = {'Trend': trend, 
                 'Autocorrelation at lag 1': acf_1,

@@ -55,7 +55,7 @@ def expsmoothing(train,test):
             'forecast' : forecast_data,
             'ModelObj' : model_fit}
 
-def SelectModel(df):
+def select_model(df):
     trainlen = int(len(df)*0.8)
     train, test = df[:trainlen],df[trainlen:]
     
