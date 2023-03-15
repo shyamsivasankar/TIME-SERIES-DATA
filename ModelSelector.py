@@ -1,14 +1,10 @@
 import pandas as pd
-import numpy as np
-import statsmodels.api as sm
-from datetime import datetime, timedelta
+from datetime import timedelta
 
-# import xgboost as xgb
 from statsmodels.tsa.arima.model import ARIMA
 from statsmodels.tsa.exponential_smoothing.ets import ETSModel 
 from statsmodels.tsa.holtwinters import ExponentialSmoothing
 from sklearn.metrics import mean_absolute_percentage_error
-# from xgboost import XGBRegressor
 
 def arima(train,test):
     model = ARIMA(train, order=(3,0,1))

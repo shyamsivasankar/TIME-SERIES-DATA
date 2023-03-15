@@ -3,7 +3,6 @@ import findClass as fc
 from Visualization import visualize
 import pandas as pd
 import uvicorn
-import matplotlib.pylab as plt
 
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
@@ -15,7 +14,6 @@ from plotly.subplots import make_subplots
 def generate_graph(title,x_axis,y_axis,value2,value1 = None):
     fig = make_subplots(rows=1, cols=1)
 
-    # Add trace
     if title == "Actual Vs Prediction":
         trace1 = go.Scatter(x=value1.index, y=value1['point_value'], mode='lines', name='actual')
     trace2 = go.Scatter(x=value2.index, y=value2.values, mode='lines', name='predicted')
@@ -23,7 +21,6 @@ def generate_graph(title,x_axis,y_axis,value2,value1 = None):
         fig.add_trace(trace1, row=1, col=1)
     fig.add_trace(trace2, row=1, col=1)
 
-    # Update layout
     fig.update_layout(title={
         'text':title,
         'x':0.5,
@@ -32,7 +29,6 @@ def generate_graph(title,x_axis,y_axis,value2,value1 = None):
         'yanchor':'top'
     }, xaxis_title=x_axis, yaxis_title=y_axis)
 
-    # Convert figure to HTML
     graph_html = fig.to_html(full_html=False)
 
     return graph_html
@@ -67,7 +63,7 @@ async def predict(request: Request,data_set: bytes = File(), start_date: str = F
             'yhat' : predict.iloc[i]
         }
         result.append(temp)
-        
+
     if per>0:
         next_dates = pd.date_range(start=datetime_series.iloc[1], periods = per+1, freq=pd.infer_freq(df.index))
         forecast = data['ModelObj'].predict(start = next_dates[1], end = next_dates[-1])
