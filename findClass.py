@@ -22,7 +22,7 @@ def classifier(data_set):
     df['point_timestamp'] = pd.to_datetime(df['point_timestamp'])
     df = df.set_index(['point_timestamp'])
     df = df.fillna(df.mean())
-    indexedDF = df.copy(deep=True)
+    indexed_df = df.copy(deep=True)
     scaler = MinMaxScaler()
     df['point_value']=scaler.fit_transform(df[['point_value']])
     
@@ -36,25 +36,24 @@ def classifier(data_set):
     max_index = spectrum.argmax()
     cyclicity = 1 / frequencies[max_index]
     
-    featureValue = {'Trend': trend,
+    feature_value = {'Trend': trend,
                     'Autocorrelation at lag 1' : acf_1,
                     'Volatility' : volatility,
                     'Frequency' : freq,
                     'Stationarity': dftest[1],
                     'Cyclicity': cyclicity}
-    if not featureValue['Frequency']:
-        featureValue['Frequency'] = frequency['H']
+    if not feature_value['Frequency']:
+        feature_value['Frequency'] = frequency['H']
     else:
-        featureValue['Frequency'] = frequency[featureValue['Frequency']]
+        feature_value['Frequency'] = frequency[feature_value['Frequency']]
 
 
-    pred = rfc.predict(pd.DataFrame(featureValue, index=[0]).values.reshape(1, -1))
+    pred = rfc.predict(pd.DataFrame(feature_value, index=[0]).values.reshape(1, -1))
 
-    keys = []
     final_model=""
     for key, value in model.items():
         if value == pred:
             final_model = key
             break
     
-    return indexedDF,final_model
+    return indexed_df,final_model

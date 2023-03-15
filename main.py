@@ -14,10 +14,13 @@ from plotly.subplots import make_subplots
 def generate_graph(title,x_axis,y_axis,value2,value1 = None):
     fig = make_subplots(rows=1, cols=1)
 
-    if title == "Actual Vs Prediction":
+    cond = "Actual Vs Prediction"
+    
+    if title == cond:
         trace1 = go.Scatter(x=value1.index, y=value1['point_value'], mode='lines', name='actual')
     trace2 = go.Scatter(x=value2.index, y=value2.values, mode='lines', name='predicted')
-    if title == "Actual Vs Prediction":
+    
+    if title == cond:
         fig.add_trace(trace1, row=1, col=1)
     fig.add_trace(trace2, row=1, col=1)
 
@@ -47,7 +50,7 @@ async def predict(request: Request,data_set: bytes = File(), start_date: str = F
         date_strings = [start_date,end_date]
         date_series = pd.Series(date_strings)
         datetime_series = pd.to_datetime(date_series)
-    except:
+    except HTTPException:
         raise HTTPException(status_code=400,detail="Invalid Query Parameters")
     
     data = visualize(df,model) 
